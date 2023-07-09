@@ -65,6 +65,7 @@ function Modal({mode, setShowModal,getData, task}) {
               onChange={handleChange}/>
             <br/>
             <label htmlFor="range">Drag to select your current progress</label>
+            <h4 className={"progress"}>% {data.progress}</h4>
             <input 
               required
               min="0"

@@ -17,7 +17,7 @@ function App() {
   const getData = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVERURL}/todos/${userEmail}`);
-      const json = await response.json();;
+      const json = await response.json();
       setTasks(json);
     } catch (err) {
       console.error(err);

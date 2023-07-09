@@ -1,7 +1,7 @@
 require('dotenv').config();
-const Pool = require('pg').Pool;
+const mariadb = require('mariadb');
 
-const pool = new Pool({
+const pool = mariadb.createPool({
     user: process.env.USER,
     password: process.env.PASSWORD,
     host: process.env.HOST,

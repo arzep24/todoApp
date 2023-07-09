@@ -9,33 +9,44 @@ function Auth() {
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
 
-  console.log(cookies);
-
   const viewLogin = (status) => {
     setError(null);
     setIsLogIn(status);
   }
   const handleSubmit = async (e, endpoint) => 
   {
+    
     e.preventDefault();
+    try {
     if  (!isLogIn && password !== confirmPassword)
     {
       setError("Make sure passwords match!");
       return;
+    }else if(email  && password ){
+      setError(null);
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVERURL}/${endpoint}`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({email, password})
+      });
+      const data = await response.json();
+      console.log(data.detail);
+      if(data.detail){
+        setError(data.detail);
+        return;
+      } else {
+        setCookie('Email',data.email);
+        setCookie('AuthToken', data.token);
+        window.location.reload();
+      }
+    }else {
+      console.log("Ingresa algo!");
+      setError("Make sure that email and password are valid!");
+      return;
     }
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_SERVERURL}/${endpoint}`, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({email, password})
-    });
-    const data = await response.json();
-    if(data.detail){setError(data.detail);}
-    else {
-      setCookie('Email',data.email);
-      setCookie('AuthToken', data.token);
-      window.location.reload();
+    }catch(err) {
+      console.error(err);
     }
-    
   } 
   return (
       <div className="auth-container">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import TickIcon from './TickIcon';
-import ProgressBar from './ProgessBar'
+import ProgressBar from './ProgressBar'
 import Modal from './Modal';
 
 function ListItem({task, getData}) {
@@ -18,7 +18,7 @@ function ListItem({task, getData}) {
   return (
       <div className="list-item">
         <div className="info-container">
-          <TickIcon/>
+          <TickIcon />
           <p className="task-title">{task.title}</p>
           <ProgressBar progress={task.progress}/>
         </div>
